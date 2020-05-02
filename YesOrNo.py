@@ -17,3 +17,5 @@ subreddit = reddit.subreddit('SUBREDDIT')
 for submission in subreddit.stream.submissions():
     if re.search("!YesOrNo", submission.title, re.IGNORECASE):
         submission.reply(choice(lines))
+
+        time.sleep(10)
