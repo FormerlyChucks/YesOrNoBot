@@ -31,5 +31,18 @@ for submission in subreddit.stream.submissions():
     if re.search("!YesOrNo", submission.title, re.IGNORECASE):
         response = getResponse()
         submission.reply(response)
-
+        
+        if response == "B&":
+          # Ban the post author.
+          subreddit.banned.add(submission.author.name, ban_reason="You got 'B&' as a response.")
+        elif response == "PLATINUM AWARD":
+          # Give a platinum award to the post.
+          submission.gild("gid_3")
+        elif response == "GOLD AWARD":
+          # Give a gold award to the post.
+          submission.gild("gid_2")
+        elif response == "SILVER AWARD":
+          # Give a silver award to the post.
+          submission.gild("gid_1")
+          
         time.sleep(10)
