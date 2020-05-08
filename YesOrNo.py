@@ -1,5 +1,5 @@
 import praw
-from random import choice
+from random import randrange
 import re
 import time
 
@@ -9,13 +9,27 @@ reddit = praw.Reddit(user_agent='USER AGENT',
                   username='USERNAME',
                   password='PASSWORD')
 
-with open("YesOrNo.txt") as f:
-    lines = [l.rstrip() for l in f]
+def getResponse():
+    number = randrange(1, 1000000)
+    if number == 1000000:
+        return "B&"
+    elif number == 999999:
+        return "PLATINUM AWARD"
+    elif number == 999998:
+        return "GOLD AWARD"
+    elif number == 999997:
+        return "SILVER AWARD"
+    else:
+        if number % 2 == 0:
+            return "Yes"
+        else:
+            return "No"
 
 subreddit = reddit.subreddit('SUBREDDIT')
 
 for submission in subreddit.stream.submissions():
     if re.search("!YesOrNo", submission.title, re.IGNORECASE):
-        submission.reply(choice(lines))
+        response = getResponse()
+        submission.reply(response)
 
         time.sleep(10)
